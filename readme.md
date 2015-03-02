@@ -8,7 +8,7 @@ Build better web components!
 
 * write a polymer web component using commonjs like this:
 
-```
+```javascript
 var Polymer = require("polymer")
 var moment = require("moment")
 
