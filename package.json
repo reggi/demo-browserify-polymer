@@ -10,7 +10,7 @@
     "browserify": "node ./node_modules/.bin/browserify ./vulcanized.js -t browserify-shim > bundle.js",
     "vulcanizeify": "npm run vulcanize && npm run strip-scripts && npm run browserify",
     "deps": "npm install && bower install",
-    "assemble": "npm run deps && npm run browserify && open ./index.html"
+    "assemble": "npm run deps && npm run vulcanizeify && open ./index.html"
   },
   "author": "",
   "license": "ISC",
