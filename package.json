@@ -5,15 +5,10 @@
   "main": "index-es6.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commonjs-polymer-shimmed": "node ./node_modules/.bin/browserify ./index-commonjs.js -t browserify-shim > commonjs-polymer-shimmed.js",
-    "commonjs-polymer-babel-index-shimmed": "node ./node_modules/.bin/browserify ./index-commonjs.js -t [ babelify --only \"index-commonjs.js\" browserify-shim ] --test > commonjs-polymer-babel-index-shimmed.js",
-    "commonjs-polymer-babel-shimmed": "node ./node_modules/.bin/browserify ./index-commonjs.js -t [ babelify browserify-shim ]  > commonjs-polymer-babel-shimmed.js",
-    "commonjs-polymer-shimmed-babel": "node ./node_modules/.bin/browserify ./index-commonjs.js -t  [ browserify-shim babelify ] > commonjs-polymer-shimmed-babel.js",
-    "es6-polymer-shimmed": "node ./node_modules/.bin/browserify ./index-es6.js -t browserify-shim > es6-polymer-shimmed.js",
-    "es6-polymer-babel-index-shimmed": "node ./node_modules/.bin/browserify ./index-es6.js -t [ babelify --only \"index-es6.js\" browserify-shim ] --test > es6-polymer-babel-index-shimmed.js",
-    "es6-polymer-babel-shimmed": "node ./node_modules/.bin/browserify ./index-es6.js -t [ babelify browserify-shim ]  > es6-polymer-babel-shimmed.js",
-    "es6-polymer-shimmed-babel": "node ./node_modules/.bin/browserify ./index-es6.js -t  [ browserify-shim babelify ] > es6-polymer-shimmed-babel.js",
-    "browserify": "sh ./bundles.sh",
+    "vulcanize": "vulcanize components.html --inline --csp",
+    "strip-scripts": "cat ./vulcanized.html | ./node_modules/.bin/rmscripts > bundle.html",
+    "browserify": "node ./node_modules/.bin/browserify ./vulcanized.js -t browserify-shim > bundle.js",
+    "vulcanizeify": "npm run vulcanize && npm run strip-scripts && npm run browserify",
     "deps": "npm install && bower install",
     "assemble": "npm run deps && npm run browserify && open ./index.html"
   },
@@ -22,10 +17,13 @@
   "dependencies": {
     "babelify": "^5.0.3",
     "browserify": "^9.0.3",
-    "browserify-shim": "^3.8.3"
+    "browserify-shim": "^3.8.3",
+    "moment": "^2.9.0",
+    "rmscripts": "0.0.2"
   },
   "browser": {
-    "polymer": "./bower_components/polymer/polymer.js"
+    "polymer": "./bower_components/polymer/polymer.js",
+    "webcomponents": "./bower_components/webcomponentsjs/webcomponents.js"
   },
   "browserify-shim": {
     "polymer": "Polymer"
